@@ -4,6 +4,7 @@ Creating a human resources system using Java-SpringBoot that can be used by empl
  
 ## Transactions Made;
 - Database Diagram was created and data was added into it ✅
-![hrms_diyagram](https://user-images.githubusercontent.com/36954450/119163592-35615800-ba64-11eb-8dc5-4e708bda2dce.png)
+![HrmsDiyagram](https://user-images.githubusercontent.com/36954450/120108035-10f43280-c16c-11eb-9494-e276a46a002f.png)
 - Entity, DataAccess, Core and Business layers were created. Abstract and concrete classes were added to these layers ✅
 - The necessary services for listing job titles have been written ✅
+- Swagger-UI integration has been added to the project. ✅ (23.05.2021)
