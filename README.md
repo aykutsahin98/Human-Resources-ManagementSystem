@@ -25,14 +25,14 @@ Creating a human resources system using Java-SpringBoot that can be used by empl
    <h2 align ="center">-------------------------------------------07/06/2021--------------------------------------------</h2>
    
 ### Operations This Week
-- Candidates can add school information
-- They can enter into the system what years they have studied in schools.
+- Candidates can add school information ✅
+- They can enter into the system what years they have studied in schools. ✅
 - Schools attended by candidates can be sorted in reverse order according to graduation year. If not graduated, this school can be displayed at the top and as "in progress".
-- Candidates can enter their work experience.
-- Candidates can enter the foreign languages ​​they know into the system. ( Language, Level -> 1-5)
-- Candidates can add photos to the system.
-- Candidate's photo will be kept on https://cloudinary.com/pricing system
-- Candidates can add their github and linkedin addresses to the system.
+- Candidates can enter their work experience. ✅
+- Candidates can enter the foreign languages ​​they know into the system. ( Language, Level -> 1-5) ✅
+- Candidates can add photos to the system. ✅
+- Candidate's photo will be kept on https://cloudinary.com/pricing system ✅
+- Candidates can add their github and linkedin addresses to the system. ✅
    
 
   
