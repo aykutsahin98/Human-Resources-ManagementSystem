@@ -1,107 +1,87 @@
 package hrms.HrmsProject.business.concretes;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hrms.HrmsProject.business.abstracts.*;
-import hrms.HrmsProject.core.abstracts.MailCheckService;
-import hrms.HrmsProject.core.abstracts.MailSendService;
-import hrms.HrmsProject.core.abstracts.MernisCheckService;
-import hrms.HrmsProject.core.utilities.results.ErrorResult;
+
+import hrms.HrmsProject.core.utilities.results.DataResult;
 import hrms.HrmsProject.core.utilities.results.Result;
+import hrms.HrmsProject.core.utilities.results.SuccessDataResult;
 import hrms.HrmsProject.core.utilities.results.SuccessResult;
 import hrms.HrmsProject.dataAccess.abstracts.*;
 import hrms.HrmsProject.entities.concretes.*;
+import hrms.HrmsProject.entities.dtos.JobSeekerResumeDto;
 
 @Service
 public class JobSeekerManager implements JobSeekerService {
-	
+
 	private JobSeekerDao jobSeekerDao;
-	private MailCheckService emailCheckService;
-	private MailSendService emailSendService;
-	private MernisCheckService mernisCheckService;
-	private List<String> emails = new ArrayList<>();
-	private List<String> identificationNumbers = new ArrayList<>();
+	private ResumeEducationService educationService;
+	private ResumeImageService resumeImageService;
+	private ResumeLinkService resumeLinkService;
+	private ResumeLanguageService languageService;
+	private ResumeExperienceService jobExperienceService;
+	private ResumeSkillService resumeSkillService;
 	
-	@Autowired
-	public JobSeekerManager(MailCheckService emailCheckService, JobSeekerDao jobSeekerDao, 
-			MailSendService emailSendService, 
-			MernisCheckService mernisCheckService) {
+	public JobSeekerManager(JobSeekerDao jobSeekerDao, ResumeEducationService educationService,
+			ResumeImageService resumeImageService, ResumeLinkService resumeLinkService,
+			ResumeLanguageService languageService, ResumeExperienceService jobExperienceService,
+			ResumeSkillService resumeSkillService) {
 		super();
-		this.emailCheckService = emailCheckService;
 		this.jobSeekerDao = jobSeekerDao;
-		this.emailSendService = emailSendService;
-		this.mernisCheckService = mernisCheckService;
+		this.educationService = educationService;
+		this.resumeImageService = resumeImageService;
+		this.resumeLinkService = resumeLinkService;
+		this.languageService = languageService;
+		this.jobExperienceService = jobExperienceService;
+		this.resumeSkillService = resumeSkillService;
 	}
 
 	@Override
-	public Result login(String email, String password) {
-		Result result = new ErrorResult("Giriş Başarısız!");
-		for (int i = 0; i < getAll().size(); i++) {
-			if (getAll().get(i).getEmail() == email && getAll().get(i).getPassword() == password) {
-				result = new SuccessResult("Giriş Başarılı!");
-			}
-		}
-		return result;
+	public Result add(JobSeeker candidate) {
+		this.jobSeekerDao.save(candidate);
+		return new SuccessResult("İş adayı başarılı bir şekilde eklendi!");
 	}
 
 	@Override
-	public Result register(JobSeeker jobSeeker) {
-		Result result = new ErrorResult("Kayıt Başarısız!");
-		if (emailCheckService.mailCheck(jobSeeker.getEmail())
-				&& emailIsItUsed(jobSeeker.getEmail())
-				&& identificationNumberIsItUsed(jobSeeker.getIdentificationNumber())
-				&& mernisCheckService.checkIfRealPerson(jobSeeker)) {
-			emailSendService.mailSend(jobSeeker.getEmail());
-			this.jobSeekerDao.save(jobSeeker);
-			result = new SuccessResult("Kayıt Başarılı.");
-		}
-		return result;
+	public Result update(JobSeeker candidate) {
+		this.jobSeekerDao.save(candidate);
+		return new SuccessResult("İş adayı başarılı bir şekilde güncellendi!");
 	}
 
 	@Override
-	public Result delete(JobSeeker jobSeeker) {
-		this.jobSeekerDao.delete(jobSeeker);
-		return new SuccessResult("Deletion is successful");
+	public Result delete(int id) {
+		this.jobSeekerDao.deleteById(id);
+		return new SuccessResult("İş adayı başarılı bir şekilde silindi!");
 	}
 
 	@Override
-	public List<JobSeeker> getAll() {
-		return this.jobSeekerDao.findAll();
+	public DataResult<JobSeeker> getById(int id) {
+		return new SuccessDataResult<JobSeeker>(this.jobSeekerDao.getById(id));
 	}
 
 	@Override
-	public List<String> getAllEmails() {
-		for (int i = 0; i < getAll().size(); i++) {
-			emails.add(getAll().get(i).getEmail());
-		}
-		return emails;
+	public DataResult<List<JobSeeker>> getAll() {
+		return new SuccessDataResult<List<JobSeeker>>(this.jobSeekerDao.findAll());
 	}
 
 	@Override
-	public List<String> getAllIdentificationNumber() {
-		for (int i = 0; i < getAll().size(); i++) {
-			identificationNumbers.add(getAll().get(i).getIdentificationNumber());
-		}
-		return identificationNumbers;
+	public DataResult<JobSeeker> getCandidateByNationalId(String nationalId) {
+		return new SuccessDataResult<JobSeeker>(this.jobSeekerDao.findCandidateByNationalId(nationalId));
 	}
 
-	public boolean identificationNumberIsItUsed(String identificationNumber) {
-		boolean result = true;
-		if (getAllIdentificationNumber().contains(identificationNumber)) {
-			result = false;
-		}
-		return result;
+	@Override
+	public DataResult<JobSeekerResumeDto> getCandidateCVById(int id) {
+		JobSeekerResumeDto resume = new JobSeekerResumeDto();
+		resume.jobExperiences = this.jobExperienceService.getAllByJobSeekerId(id).getData();
+		resume.languages = this.languageService.getAllByJobSeekerId(id).getData();
+		resume.image = this.resumeImageService.getByJobSeekerId(id).getData();
+		resume.resumeLinks = this.resumeLinkService.getAllByJobSeekerId(id).getData();
+		resume.educations = this.educationService.getAllByJobSeekerId(id).getData();
+		resume.resumeSkills = this.resumeSkillService.getAllByJobSeekerId(id).getData();
+		return new SuccessDataResult<JobSeekerResumeDto>(resume);
 	}
 	
-	public boolean emailIsItUsed(String email) {
-		boolean result = true;
-		if (getAllEmails().contains(email)) {
-			result = false;
-		}
-		return result;
-	}
 }

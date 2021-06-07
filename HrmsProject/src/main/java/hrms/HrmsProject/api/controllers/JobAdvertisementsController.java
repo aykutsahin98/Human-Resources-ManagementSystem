@@ -50,7 +50,7 @@ public class JobAdvertisementsController {
 		this.jobAdvertisementService.update(jobAdvertisement);
 	}
 	@DeleteMapping("/delete")
-	public Result delete(@RequestParam JobAdvertisement jobAdvertisement) {
+	public Result delete(@RequestBody JobAdvertisement jobAdvertisement) {
 		return this.jobAdvertisementService.delete(jobAdvertisement);
 	}
 }

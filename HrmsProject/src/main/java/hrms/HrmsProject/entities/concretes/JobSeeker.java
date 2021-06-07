@@ -1,19 +1,27 @@
 package hrms.HrmsProject.entities.concretes;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@PrimaryKeyJoinColumn(name="user_id",referencedColumnName = "id")
 @Data
 @Entity
 @Table(name = "job_seekers")
+@AllArgsConstructor
 @NoArgsConstructor
+@PrimaryKeyJoinColumn(name="user_id",referencedColumnName = "id")
 @EqualsAndHashCode(callSuper = false)
 public class JobSeeker extends User {
 	
@@ -24,19 +32,36 @@ public class JobSeeker extends User {
 	private String lastName;
 	
 	@Column(name = "identification_number")
-	private String identificationNumber;
+	private String nationalId;
 	
 	@Column(name = "birth_year")
 	private int birthYear;
-
-	public JobSeeker(String email, String password, String firstName, String lastName, String identificationNumber,
-			int birthYear) {
-		super(email, password);
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.identificationNumber = identificationNumber;
-		this.birthYear = birthYear;
-	}
-
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "candidate")
+	private List<ResumeEducation> educations;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "candidate")
+	private List<ResumeSkill> programingSkills;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "candidate")
+	private List<ResumeLink> links;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "candidate")
+	private List<ResumeLanguage> languages;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "candidate")
+	private List<ResumeExperience> experiences;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "candidate")
+	private List<ResumeCoverLetter> coverLetters;	
+
+	@JsonIgnore
+	@OneToOne(mappedBy = "candidate")
+	private ResumeImage image;
 }

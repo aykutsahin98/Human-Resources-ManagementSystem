@@ -14,7 +14,7 @@ public class MernisCheckAdapters implements MernisCheckService{
 		boolean result=false;
 		try {
 			result=client.TCKimlikNoDogrula(
-						Long.valueOf(jobSeeker.getIdentificationNumber()), 
+						Long.valueOf(jobSeeker.getNationalId()), 
 						jobSeeker.getFirstName(), 
 						jobSeeker.getLastName(), 
 						jobSeeker.getBirthYear());

@@ -21,8 +21,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 
 public class SystemPersonnel extends User{
-
-	
 	
 	@Column(name = "department_id")
 	private int departmentId;
@@ -32,6 +30,4 @@ public class SystemPersonnel extends User{
 	
 	@Column(name = "lastName")
 	private String lastName;
-
-
 }

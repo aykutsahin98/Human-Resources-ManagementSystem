@@ -8,35 +8,42 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import hrms.HrmsProject.business.abstracts.JobSeekerService;
+import hrms.HrmsProject.core.utilities.results.DataResult;
 import hrms.HrmsProject.core.utilities.results.Result;
 import hrms.HrmsProject.entities.concretes.JobSeeker;
+import hrms.HrmsProject.entities.dtos.JobSeekerResumeDto;
 
 @RestController
-@RequestMapping("/api/jobseekers")
+@RequestMapping("/api/candidates")
 public class JobSeekersController {
 	
-	private JobSeekerService jobSeekerService;
-
-	@Autowired
-	public JobSeekersController(JobSeekerService jobSeekerService) {
-		super();
-		this.jobSeekerService = jobSeekerService;
-	}
+	private JobSeekerService candidateService;
 	
+	@Autowired
+	public JobSeekersController(JobSeekerService candidateService) {
+		super();
+		this.candidateService = candidateService;
+	}
+		
 	@GetMapping("/getall")
-	public List<JobSeeker> getAll(){
-		return this.jobSeekerService.getAll();
+	public DataResult<List<JobSeeker>> getAll(){
+		return this.candidateService.getAll();
 	}
-	@PostMapping("/register")
-	public Result add(@RequestBody JobSeeker jobSeeker) {
-		return this.jobSeekerService.register(jobSeeker);
-	}
-	@DeleteMapping("/delete")
-	public Result delete(@RequestBody JobSeeker jobSeeker) {
-		return this.jobSeekerService.delete(jobSeeker);
+		
+	@PostMapping("/add")
+	public Result add(@RequestBody JobSeeker candidate) {
+		return this.candidateService.add(candidate);
 		
 	}
+	
+	@GetMapping("/getJobseekerCVById")
+	public DataResult<JobSeekerResumeDto> getCandidateCVById(@RequestParam int id){
+		return this.candidateService.getCandidateCVById(id);
+	}
+
+
 }
