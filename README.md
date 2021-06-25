@@ -4,7 +4,7 @@ Creating a human resources system using Java-SpringBoot that can be used by empl
  
 ## Transactions Made;
 - Database Diagram was created and data was added into it ✅
-![HrmsDiyagram](https://user-images.githubusercontent.com/36954450/120108035-10f43280-c16c-11eb-9494-e276a46a002f.png)
+![UpdatedDiagram](https://user-images.githubusercontent.com/36954450/121079285-9f0e8f80-c7e2-11eb-8e7b-f788c296828e.png)
 - Entity, DataAccess, Core and Business layers were created. Abstract and concrete classes were added to these layers ✅
 - The necessary services for listing job titles have been written ✅
 - Swagger-UI integration has been added to the project. ✅ (23.05.2021)
@@ -21,3 +21,18 @@ Creating a human resources system using Java-SpringBoot that can be used by empl
 ### Req 9 : All active job postings in the system should be listed by date ✅
 ### All active job postings of a company should be listed in the system ✅
 ### Employers should be able to close a posting in the system. (Passive posting) ✅
+
+   <h2 align ="center">-------------------------------------------07/06/2021--------------------------------------------</h2>
+   
+### Operations This Week
+- Candidates can add school information ✅
+- They can enter into the system what years they have studied in schools. ✅
+- Schools attended by candidates can be sorted in reverse order according to graduation year. If not graduated, this school can be displayed at the top and as "in progress".
+- Candidates can enter their work experience. ✅
+- Candidates can enter the foreign languages ​​they know into the system. ( Language, Level -> 1-5) ✅
+- Candidates can add photos to the system. ✅
+- Candidate's photo will be kept on https://cloudinary.com/pricing system ✅
+- Candidates can add their github and linkedin addresses to the system. ✅
+   
+
+  
