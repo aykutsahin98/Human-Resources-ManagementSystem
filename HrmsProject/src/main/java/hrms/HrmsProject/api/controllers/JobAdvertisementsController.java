@@ -2,7 +2,9 @@ package hrms.HrmsProject.api.controllers;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
+import javax.validation.Valid;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +16,9 @@ import hrms.HrmsProject.business.abstracts.JobAdvertisementService;
 import hrms.HrmsProject.core.utilities.results.DataResult;
 import hrms.HrmsProject.core.utilities.results.Result;
 import hrms.HrmsProject.entities.concretes.JobAdvertisement;
+import hrms.HrmsProject.entities.dtos.JobAdvertisementDto;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/jobadvertisements")
 public class JobAdvertisementsController {
@@ -30,27 +34,40 @@ public class JobAdvertisementsController {
 		return this.jobAdvertisementService.getAll();
 	}
 	
-	@GetMapping("/getallbydate")
-	public DataResult<List<JobAdvertisement>> getAllByDate(){
-		return this.jobAdvertisementService.getAllSortedByDate();
+	@GetMapping("/sortbyreleasedate")
+	public DataResult<List<JobAdvertisement>> sortByReleaseDate() {
+		return this.jobAdvertisementService.sortByReleaseDate();
 	}
 	
-	@GetMapping("/getallbyactive")
-	public DataResult<List<JobAdvertisement>> getAllByActive(){
-		return this.jobAdvertisementService.getAllSortedByActive();
+	@GetMapping("/getbyisconfirm")
+	public DataResult<List<JobAdvertisement>> getByIsActive(@RequestParam boolean isConfirm) {
+		return this.jobAdvertisementService.getByIsConfirm(isConfirm);
+	}
+	
+	@GetMapping("/getbyisconfirmandisactive")
+	public DataResult<List<JobAdvertisement>> getByIsConfirmAndIsActive(@RequestParam boolean isConfirm,
+			@RequestParam boolean isActive) {
+		return this.jobAdvertisementService.getByIsConfirmAndIsActive(isConfirm, isActive);
 	}
 	
 	@PostMapping("/add")
-	public void add(@RequestBody JobAdvertisement jobAdvertisement){
-		this.jobAdvertisementService.add(jobAdvertisement);
+	public Result add(@Valid @RequestBody JobAdvertisementDto jobAdvertisementDto) {
+		return this.jobAdvertisementService.add(jobAdvertisementDto);
 	}
 	
-	@PostMapping("/update")
-	public void update(@RequestBody JobAdvertisement jobAdvertisement){
-		this.jobAdvertisementService.update(jobAdvertisement);
+	@PostMapping("/updateisactive")
+	public Result updateIsActive(@RequestParam boolean isActive, @RequestParam int userId, @RequestParam int id) {
+		return this.jobAdvertisementService.updateIsActive(isActive, userId, id);
 	}
-	@DeleteMapping("/delete")
-	public Result delete(@RequestBody JobAdvertisement jobAdvertisement) {
-		return this.jobAdvertisementService.delete(jobAdvertisement);
+
+	@PostMapping("/updateisconfirm")
+	public Result updateIsConfirm(@RequestParam boolean isConfirm, @RequestParam int id) {
+		return this.jobAdvertisementService.updateIsConfirm(isConfirm, id);
 	}
+	
+	@GetMapping("/getbyid")
+	public DataResult<JobAdvertisement> getById(@RequestParam int id) {
+		return this.jobAdvertisementService.getById(id);
+	}
+
 }

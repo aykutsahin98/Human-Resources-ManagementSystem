@@ -1,5 +1,7 @@
 package hrms.HrmsProject.entities.concretes;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,6 +42,10 @@ public class JobAdvertisement {
 	@JoinColumn(name = "city_id")
 	private City city;
 	
+	@ManyToOne
+	@JoinColumn(name = "working_type_id")
+	private WorkingType workingType;
+	
 	@Column(name = "job_description")
 	private String jobDescription;
 	
@@ -55,9 +61,14 @@ public class JobAdvertisement {
 	@Column(name = "is_active")
 	private boolean isActive;
 	
+	@Column(name = "is_confirm")
+	private boolean isConfirm;
+	
 	@Column(name = "max_salary")
 	private int maxSalary;
 	
 	@Column(name = "creation_date")
 	private String creationDate;
+	
+
 }

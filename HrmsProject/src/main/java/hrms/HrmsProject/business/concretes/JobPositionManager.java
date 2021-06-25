@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hrms.HrmsProject.business.abstracts.JobPositionService;
+import hrms.HrmsProject.core.utilities.results.DataResult;
 import hrms.HrmsProject.core.utilities.results.ErrorResult;
 import hrms.HrmsProject.core.utilities.results.Result;
+import hrms.HrmsProject.core.utilities.results.SuccessDataResult;
 import hrms.HrmsProject.core.utilities.results.SuccessResult;
 import hrms.HrmsProject.dataAccess.abstracts.JobPositionDao;
 import hrms.HrmsProject.entities.concretes.JobPosition;
@@ -23,18 +25,18 @@ public class JobPositionManager implements JobPositionService{
 		this.jobPositionDao = jobPositionDao;
 	}
 	@Override
-	public List<JobPosition> getAll() {
-		return jobPositionDao.findAll();
+	public DataResult<List<JobPosition>> getAll() {
+		return new SuccessDataResult<List<JobPosition>>(this.jobPositionDao.findAll(),"Tüm iş pozisyonları listelendi.");
+
 	}
 
 	@Override
 	public Result add(JobPosition jobPosition) {
-		Result result = new ErrorResult("İş Pozisyonu Sisteme Eklenemedi");
-		if (positionIsItUsed(jobPosition.getName())) {
-			this.jobPositionDao.save(jobPosition);
-			result = new SuccessResult("İş Pozisyonu Sisteme Başarıyla Eklendi!");
+		if(getJobByTitle(jobPosition.getName()).getData() != null){
+			return new ErrorResult( jobPosition.getName() + "zaten var");
 		}
-		return result;
+		this.jobPositionDao.save(jobPosition);
+	    return new SuccessResult("İş Pozisyonu baaşarılı bir şekilde eklendi!.");
 	}
 
 	@Override
@@ -42,14 +44,10 @@ public class JobPositionManager implements JobPositionService{
 		this.jobPositionDao.delete(jobPosition);
 		return new SuccessResult("İş Pozisyonu Başarıyla Silindi");
 	}
-
-	public boolean positionIsItUsed(String positionName) {
-		boolean result = true;
-		for (int i = 0; i < getAll().size(); i++) {
-			if (getAll().get(i).getName() == positionName) {
-				result = false;
-			}
-		}
-		return result;
+	@Override
+	public DataResult<JobPosition> getJobByTitle(String title) {
+		return new SuccessDataResult<JobPosition>(this.jobPositionDao.findByName(title));
 	}
+
+	
 }
