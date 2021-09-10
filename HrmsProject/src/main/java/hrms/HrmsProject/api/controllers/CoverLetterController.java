@@ -15,6 +15,7 @@ import hrms.HrmsProject.business.abstracts.ResumeCoverLetterService;
 import hrms.HrmsProject.core.utilities.results.DataResult;
 import hrms.HrmsProject.core.utilities.results.Result;
 import hrms.HrmsProject.entities.concretes.ResumeCoverLetter;
+import hrms.HrmsProject.entities.concretes.ResumeEducation;
 
 @CrossOrigin
 @RestController
@@ -50,6 +51,11 @@ public class CoverLetterController {
 	@GetMapping("/getall")
 	public DataResult<List<ResumeCoverLetter>> getAll(){
 		return this.coverLetterService.getAll();
+	}
+	
+	@GetMapping("/getAllByCandidateId")
+	public DataResult<List<ResumeCoverLetter>> getAllByCandidateId(@RequestParam int id){
+		return this.coverLetterService.getAllByJobSeekerId(id);
 	}
 	
 

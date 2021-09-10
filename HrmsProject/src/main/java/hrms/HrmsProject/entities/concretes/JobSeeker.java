@@ -1,16 +1,9 @@
 package hrms.HrmsProject.entities.concretes;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,7 +30,7 @@ public class JobSeeker extends User {
 	@Column(name = "birth_year")
 	private int birthYear;
 	
-	@JsonIgnore
+	/*@JsonIgnore
 	@OneToMany(mappedBy = "candidate")
 	private List<ResumeEducation> educations;
 	
@@ -63,5 +56,5 @@ public class JobSeeker extends User {
 
 	@JsonIgnore
 	@OneToOne(mappedBy = "candidate")
-	private ResumeImage image;
+	private ResumeImage image;*/
 }

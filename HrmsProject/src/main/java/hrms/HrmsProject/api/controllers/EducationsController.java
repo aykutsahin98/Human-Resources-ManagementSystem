@@ -15,6 +15,7 @@ import hrms.HrmsProject.business.abstracts.ResumeEducationService;
 import hrms.HrmsProject.core.utilities.results.DataResult;
 import hrms.HrmsProject.core.utilities.results.Result;
 import hrms.HrmsProject.entities.concretes.ResumeEducation;
+import hrms.HrmsProject.entities.dtos.ResumeEducationDto;
 
 @CrossOrigin
 @RestController
@@ -30,21 +31,26 @@ public class EducationsController {
 	}
 	
 	@PostMapping("/add")
-	public Result add(@RequestBody ResumeEducation schoolForCV){
-		return this.educationService.add(schoolForCV);
+	public Result add(@RequestBody ResumeEducationDto schoolForCVDto){
+		return this.educationService.addSchool(schoolForCVDto);
 	}
 	
-	@PostMapping("/update")
+	/*@PostMapping("/update")
 	public Result update(@RequestBody ResumeEducation schoolForCV){
 		return this.educationService.update(schoolForCV);
-	}
+	}*/
 	
 	@PostMapping("/delete")
-	public Result delete(@RequestParam int id){
-		return this.educationService.delete(id);
+	public Result delete(@RequestParam int schoolId){
+		return this.educationService.deleteSchool(schoolId);
 	}
 	
-	@GetMapping("/getbyid")
+	 @GetMapping("/getByCvId")
+	    public DataResult<List<ResumeEducation>> getByCvId(@RequestParam int cvId){
+	        return this.educationService.getByCvId(cvId);
+	    }
+	
+	/*@GetMapping("/getbyid")
 	public DataResult<ResumeEducation> getById(@RequestParam int id){
 		return this.educationService.getById(id);
 	}
@@ -62,7 +68,7 @@ public class EducationsController {
 	@GetMapping("/getAllByCandidateId")
 	public DataResult<List<ResumeEducation>> getAllByCandidateId(@RequestParam int id){
 		return this.educationService.getAllByJobSeekerId(id);
-	}
+	}*/
 				
 
 }

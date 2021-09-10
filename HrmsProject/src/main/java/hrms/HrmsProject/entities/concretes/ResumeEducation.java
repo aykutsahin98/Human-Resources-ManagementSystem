@@ -1,7 +1,7 @@
 package hrms.HrmsProject.entities.concretes;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -43,9 +43,13 @@ public class ResumeEducation   {
 	@Column(name = "end_date")
 	private LocalDate endedDate;
 	
-	@ManyToOne()
+	/*@ManyToOne()
 	@JoinColumn(name = "jobseeker_id")
-	private JobSeeker candidate;
+	private JobSeeker candidate;*/
+	
+	 @ManyToOne()
+	 @JoinColumn(name = "cv_id")
+	 private Cv cv;
 	
 	public String getEndDate() {
 		if (this.endedDate == null)

@@ -12,6 +12,8 @@ import hrms.HrmsProject.core.utilities.results.SuccessDataResult;
 import hrms.HrmsProject.core.utilities.results.SuccessResult;
 import hrms.HrmsProject.dataAccess.abstracts.ResumeCoverLetterDao;
 import hrms.HrmsProject.entities.concretes.ResumeCoverLetter;
+import hrms.HrmsProject.entities.concretes.ResumeEducation;
+import hrms.HrmsProject.entities.concretes.ResumeSkill;
 
 @Service
 public class ResumeCoverLetterManager implements ResumeCoverLetterService {
@@ -50,6 +52,11 @@ public class ResumeCoverLetterManager implements ResumeCoverLetterService {
 	@Override
 	public DataResult<List<ResumeCoverLetter>> getAll() {
 		return new SuccessDataResult<List<ResumeCoverLetter>>(this.coverLetterDao.findAll());
+	}
+
+	@Override
+	public DataResult<List<ResumeCoverLetter>> getAllByJobSeekerId(int id) {
+		 return new SuccessDataResult<List<ResumeCoverLetter>>(this.coverLetterDao.getAllByCandidate_id(id));
 	}
 
 	

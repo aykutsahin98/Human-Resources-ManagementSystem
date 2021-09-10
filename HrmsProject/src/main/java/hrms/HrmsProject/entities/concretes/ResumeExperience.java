@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="resume_experiences")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","cv"})
 //@PrimaryKeyJoinColumn(name = "user_id")
 public class ResumeExperience   {
 	@Id
@@ -40,14 +43,18 @@ public class ResumeExperience   {
 	@Column(name= "position")
 	private String position;
 	
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name = "jobseeker_id")
-	private JobSeeker candidate;
+	private JobSeeker candidate;*/
 
 	public String getEndDate() {
 		if (this.endedDate == null)
 			return "Devam ediyor";
 		return this.endedDate.toString();
 	}
+	
+	 @ManyToOne()
+	 @JoinColumn(name = "cv_id")
+	 private Cv cv;
 	
 }

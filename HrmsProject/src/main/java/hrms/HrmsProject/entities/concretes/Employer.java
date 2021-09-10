@@ -34,13 +34,10 @@ public class Employer extends User{
 	
 	@Column(name="verification_status")
 	private boolean verificationStatus;
+	
+	@Column(name = "waiting_update")
+    private boolean waitingUpdate;
 
-	public Employer(String email, String password, String companyName, String webSite, String phoneNumber, boolean verificationStatus) {
-		super(email, password);
-		this.companyName = companyName;
-		this.webSite = webSite;
-		this.phoneNumber = phoneNumber;
-		this.verificationStatus = verificationStatus;
-	}
+	
 	
 }

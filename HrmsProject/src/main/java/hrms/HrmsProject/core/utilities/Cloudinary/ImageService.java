@@ -6,7 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import hrms.HrmsProject.core.utilities.results.DataResult;
 
-public interface ImageService {
+/*public interface ImageService {
 
 	DataResult<Map> uploadImageFile(MultipartFile imageFile);
 }
+*/

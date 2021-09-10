@@ -15,6 +15,7 @@ import hrms.HrmsProject.business.abstracts.ResumeLanguageService;
 import hrms.HrmsProject.core.utilities.results.DataResult;
 import hrms.HrmsProject.core.utilities.results.Result;
 import hrms.HrmsProject.entities.concretes.ResumeLanguage;
+import hrms.HrmsProject.entities.dtos.ResumeLanguageDto;
 
 @CrossOrigin
 @RestController
@@ -30,32 +31,37 @@ public class LanguagesController {
 	}
 	
 	@PostMapping("/add")
-	public Result add( @RequestBody ResumeLanguage language){
-		return this.languageService.add(language);
+	public Result add( @RequestBody ResumeLanguageDto languageDto){
+		return this.languageService.addLanguage(languageDto);
 		
 	}
 	
-	@PostMapping("/update")
+	/*@PostMapping("/update")
 	public Result update( @RequestBody ResumeLanguage language){
 		return this.languageService.update(language);
 		
-	}
+	}*/
 	
 	@PostMapping("/delete")
-	public Result delete( @RequestParam int  id){
-		return this.languageService.delete(id);
+	public Result delete( @RequestParam int languageId){
+		return this.languageService.deleteLanguage(languageId);
 		
 	}
 	
-	@GetMapping("/getall")
+	 @GetMapping("/getByCvId")
+	    public DataResult<List<ResumeLanguage>> getByCvId(@RequestParam int cvId){
+	        return this.languageService.getByCvId(cvId);
+	    }
+	
+/*	@GetMapping("/getall")
 	public DataResult<List<ResumeLanguage>> getAll(){
 		return this.languageService.getAll();
-	}
+	}*/
 	
-	@GetMapping("/getAllByCandidateId")
+	/*@GetMapping("/getAllByCandidateId")
 	public DataResult<List<ResumeLanguage>> getAllByCandidateId(@RequestParam int id){
 		return this.languageService.getAllByJobSeekerId(id);
-	}
+	}*/
 	/*@GetMapping("/getById")
 	public DataResult<ResumeLanguage> getById(@RequestParam int id){
 		return this.languageService.getById(id);

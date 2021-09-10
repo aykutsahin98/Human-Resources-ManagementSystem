@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "resume_languages")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false) 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","cv"})
 //@PrimaryKeyJoinColumn(name="user_id")
 public class ResumeLanguage     {
 	
@@ -34,13 +36,17 @@ public class ResumeLanguage     {
 	@Min(value = 1 )
 	@Max(value = 5)	
 	@Column(name="language_level")
-	private int level;
+	private String level;
 	
 	@Column(name="language_name")
 	private String languageName;
 	
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name = "jobseeker_id")
-	private JobSeeker candidate;
+	private JobSeeker candidate;*/
+	
+	 @ManyToOne()
+	 @JoinColumn(name = "cv_id")
+	 private Cv cv;
 
 }

@@ -8,6 +8,7 @@ import hrms.HrmsProject.entities.concretes.ResumeLanguage;
 
 public interface ResumeLanguageDao extends JpaRepository<ResumeLanguage, Integer>{
 
-	ResumeLanguage getById(int id);
-	List<ResumeLanguage> getAllByCandidate_id(int id);
+	/*ResumeLanguage getById(int id);
+	List<ResumeLanguage> getAllByCandidate_id(int id);*/
+	   List<ResumeLanguage> findByCvId(int id);
 }

@@ -8,7 +8,8 @@ import hrms.HrmsProject.entities.concretes.ResumeExperience;
 
 public interface ResumeExperienceDao extends JpaRepository<ResumeExperience, Integer>{
 
-	ResumeExperience getById(int id);
-	List<ResumeExperience> getAllByCandidate_idOrderByEndedDateDesc(int id);
-	List<ResumeExperience> getAllByCandidate_id(int id);
+	//ResumeExperience getById(int id);
+	//List<ResumeExperience> getAllByCandidate_idOrderByEndedDateDesc(int id);
+	//List<ResumeExperience> getAllByCandidate_id(int id);
+	List<ResumeExperience> findByCvId(int id);
 }

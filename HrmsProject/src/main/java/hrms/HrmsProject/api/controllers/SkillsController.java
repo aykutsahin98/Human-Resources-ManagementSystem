@@ -3,6 +3,7 @@ package hrms.HrmsProject.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import hrms.HrmsProject.business.abstracts.ResumeSkillService;
 import hrms.HrmsProject.core.utilities.results.DataResult;
 import hrms.HrmsProject.core.utilities.results.Result;
 import hrms.HrmsProject.entities.concretes.ResumeSkill;
+import hrms.HrmsProject.entities.dtos.ResumeSkillDto;
 
 @CrossOrigin
 @RestController
@@ -30,25 +32,38 @@ private ResumeSkillService resumeSkillService;
 		this.resumeSkillService = resumeSkillService;
 	}
 	
-	@PostMapping("/add")
-	public Result add( @RequestBody ResumeSkill resumeSkill){
-		return this.resumeSkillService.add(resumeSkill);
+	/*@PostMapping("/add")
+	  public Result addTechnology(@RequestBody ResumeSkillDto resumeSkillDto){
+        return this.resumeSkillService.add(resumeSkillDto);
 		
-	}
+	}*/
+	@PostMapping("/add")
+    public ResponseEntity<?> add(@RequestBody ResumeSkillDto experianceForSetDto){
+        Result result = this.resumeSkillService.add(experianceForSetDto);
+        if(result.isSuccess()){
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.badRequest().body(result);
+    }
 	
-	@PostMapping("/update")
+	/*@PostMapping("/update")
 	public Result update( @RequestBody ResumeSkill resumeSkill){
 		return this.resumeSkillService.update(resumeSkill);
 		
-	}
+	}*/
 	
 	@PostMapping("/delete")
-	public Result delete( @RequestParam int  id){
-		return this.resumeSkillService.delete(id);
+	public Result delete( @RequestParam int experianceId){
+		return this.resumeSkillService.delete(experianceId);
 		
 	}
 	
-	@GetMapping("/getall")
+	 @GetMapping("/getByCvId")
+	    public DataResult<List<ResumeSkill>> getByCvId(@RequestParam int cvId){
+	        return this.resumeSkillService.getByCvId(cvId);
+	    }
+	
+	/*@GetMapping("/getall")
 	public DataResult<List<ResumeSkill>> getAll(){
 		return this.resumeSkillService.getAll();
 	}

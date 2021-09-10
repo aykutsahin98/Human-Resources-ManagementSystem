@@ -13,7 +13,7 @@ import hrms.HrmsProject.core.utilities.results.DataResult;
 import hrms.HrmsProject.core.utilities.results.ErrorDataResult;
 import hrms.HrmsProject.core.utilities.results.SuccessDataResult;
 
-@Service
+/*@Service
 public class CloudinaryManager implements ImageService {
 
 private Cloudinary cloudinary;
@@ -41,4 +41,4 @@ private Cloudinary cloudinary;
 
 	
 
-}
+}*/

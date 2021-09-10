@@ -8,6 +8,7 @@ import hrms.HrmsProject.entities.concretes.ResumeSkill;
 
 public interface ResumeSkillDao extends JpaRepository<ResumeSkill, Integer>{
 
-	ResumeSkill getById(int id);
-	List<ResumeSkill> getAllByCandidate_id(int id);
+	/*ResumeSkill getById(int id);
+	List<ResumeSkill> getAllByCandidate_id(int id);*/
+	List<ResumeSkill> findByCvId(int id);
 }
