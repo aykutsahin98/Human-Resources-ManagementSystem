@@ -34,5 +34,14 @@ Creating a human resources system using Java-SpringBoot that can be used by empl
 - Candidate's photo will be kept on https://cloudinary.com/pricing system ✅
 - Candidates can add their github and linkedin addresses to the system. ✅
    
+<h2 align ="center">-------------------------------------------10/09/2021--------------------------------------------</h2>
 
+### Operations This Week
+- Job seekers can enter and update their CV in the system. 
+- Two different inputs were integrated into the system. (Job seeker and Employer) 
+- Employers can update their profile in the system. 
+- When the employer makes an update, it does not appear in his profile without the approval of the system personnel. 
+- When the employer adds an advertisement, the approval of the advertisement goes to the system personnel. 
+- A confirmation e-mail is sent when users become a member of the system.
+- The project has been completed ✅
   
